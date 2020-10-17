@@ -1,0 +1,23 @@
+{
+  "name": "related-package",
+  "version": "1.0.0",
+  "description": "System Design Capstone - Using MongoDB to save information about related products and your outfit",
+  "main": "conversion.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Stubbs/related.git"
+  },
+  "author": "Arielle Scherr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-Stubbs/related/issues"
+  },
+  "homepage": "https://github.com/Team-Stubbs/related#readme",
+  "dependencies": {
+    "csv-parser": "^2.3.3",
+    "mongoose": "^5.10.9"
+  }
+}
