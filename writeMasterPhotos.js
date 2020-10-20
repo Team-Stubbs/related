@@ -20,37 +20,40 @@ let connectToDB = new Promise((resolve, reject) => {
   });
 })
 
-const writeStream = fs.createWriteStream('./productDataWithRelated.json');
+const writeStream = fs.createWriteStream('./photoDataWithStyles.json');
 
-let productSchema = new mongoose.Schema({});
-let relatedSchema = new mongoose.Schema({});
-let masterSchema = new mongoose.Schema({});
+let photoSchema = new mongoose.Schema({});
+let styleSchema = new mongoose.Schema({});
 
-const Products = mongoose.model('Product', productSchema, 'products');
-const Related = mongoose.model('Related', relatedSchema, 'related');
-const Master = mongoose.model('Master', masterSchema, 'master');
+const Photo = mongoose.model('Photo', productSchema, 'photos');
+const Style = mongoose.model('Style', relatedSchema, 'styles');
 
-const productFinder = (num) => {
-  return Products.find({id: num});
+const photoFinder = (num) => {
+  return Photo.find({styleId: num});
 }
-const relatedFinder = (num) => {
-  return Related.find({current_product_id: num});
+const styleFinder = (num) => {
+  return Style.find({id: num});
+}
+const styleProductFinder = (num) => {
+  return Style.find({productId: num})
 }
 
 const productCollector = async () => {
   let result = [];
   // iterate over each product in groups of 100,000
-  for (var i = 1000011; i < 1000012; i++) {
-    const currentProducts = await productFinder(i)
+  for (var i = 1; i < 100001; i++) {
+    const currentProducts = await styleProductFinder(i);
+    // const currentStyles = await styleFinder(i)
     if (currentProducts.length > 0) {
+      // TODO: look at this data structure to see if we're pulling in data correctly
       var values = Object.values(currentProducts[0]);
       let doc = {
-        product_id: values[values.length - 2].id,
-        name: values[values.length - 2][' name'],
-        category: values[values.length - 2][' category'],
-        price: values[values.length - 2][' default_price'],
-        related: []
+        product_id: values[values.length - 2].productId,
+        style_ids: [],
+        photos: {}
       }
+      // TODO: also check data here
+      doc.style_ids.push(values[values.length - 2].styleId);
 
       // for each product,
       for (var j = 0; j < currentProducts.length; j++) {
