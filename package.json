@@ -18,6 +18,8 @@
   "homepage": "https://github.com/Team-Stubbs/related#readme",
   "dependencies": {
     "csv-parser": "^2.3.3",
-    "mongoose": "^5.10.9"
+    "csvtojson": "^2.0.10",
+    "mongoose": "^5.10.9",
+    "stream-json": "^1.7.1"
   }
 }
